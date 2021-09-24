@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bookish
+namespace Bookish.ConsoleApp
 {
     class Program
     {
