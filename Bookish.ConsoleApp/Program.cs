@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Data.SqlClient;
-using Dapper;
+using Bookish.DataAccess;
 
 namespace Bookish.ConsoleApp
 {
@@ -9,14 +8,21 @@ namespace Bookish.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            var cs = @"Server=localhost;Database=bookish;Trusted_Connection=True;";
+            BookRepository br = new BookRepository();
 
-            using var con = new SqlConnection(cs);
-            con.Open();
+            foreach (User user in br.GetAllUsersWithSpecifiedSurname("Bevan"))
+            {
+                Console.WriteLine(user);
+            }
 
-            var users = con.Query<User>("SELECT * FROM users").ToList();
+            Console.WriteLine();
 
-            users.ForEach(Console.WriteLine);
+            //br.AddBookToLibrary("A Book Title", "Your mum", "isbn123456", "barcode123456", 69);
+
+            foreach (Book book in br.GetAllBooks())
+            {
+                Console.WriteLine(book);
+            }
         }
     }
 }
